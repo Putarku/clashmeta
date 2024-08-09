@@ -6,7 +6,7 @@
 
 ## MosDNS的配置
 
-![image-20240808170527525](教程/img/image-20240808170527525.png)
+![image-20240808170527525](img/image-20240808170527525.png)
 
 上游DNS服务器可以填写国内的几个常用DNS例如（不用填的太多2-3个即可）：
 
@@ -19,7 +19,7 @@ https://dns.alidns.com/dns-query
 
 远程DNS为openclash的DNS监听端口，如果没有对其修改的话，默认填写`127.0.0.1:7874`即可
 
-![image-20240808170555760](教程/img/image-20240808170555760.png)
+![image-20240808170555760](img/image-20240808170555760.png)
 
 
 
@@ -80,19 +80,19 @@ Default-NameServer
 
 这条规则的效果是将局域网内设备访问网关的dns请求都转发到openwrt上，从而进行分流操作。
 
-![image-20240808172639716](教程/img/image-20240808172639716.png)
+![image-20240808172639716](img/image-20240808172639716.png)
 
 
 
 网络设置 - 静态路由 - 静态路由，将这个[static_route.txt](https://github.com/Putarku/clashmeta/blob/main/rule/static_route.txt)文件中的`192.168.31.2`修改为你的openwrt地址后，再进行导入。这一步非常关键，关系到客户端获取的fake-ip能否转发给openwrt。这个文件中的其他规则是为了某些使用ip进行连接的应用走旁路由而设置的。
 
-![image-20240808174141788](教程/img/image-20240808174141788.png)
+![image-20240808174141788](img/image-20240808174141788.png)
 
 
 
 网络设置-DHCP服务端，将首选、备选DNS改为openwrt的ip，网关设置为主路由ikuai。
 
-![image-20240808174257571](教程/img/image-20240808174257571.png)
+![image-20240808174257571](img/image-20240808174257571.png)
 
 
 
@@ -102,7 +102,7 @@ Default-NameServer
 
 ### Openwrt中DNS的处理路径
 
-![image-20240808170037379](教程/img/image-20240808170037379.png)
+![image-20240808170037379](img/image-20240808170037379.png)
 
 设备的dns请求被发送到openwrt后，会先由AdGuard Home进行处理，在没有找到缓存信息的情况下，AdGuard Home会对上游的mosdns发起dns查询请求。mosdns会先对域名进行判断，如果为国内ip或域名，则直接向上游dns服务器发起查询，并将真实ip返回给AdGuard Home，AdGuard Home再将ip返回给客户端，客户端通过真实ip可以直接从ikuai的网关出去。
 
