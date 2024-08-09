@@ -19,6 +19,8 @@ https://dns.alidns.com/dns-query
 
 远程DNS为openclash的DNS监听端口，如果没有对其修改的话，默认填写`127.0.0.1:7874`即可
 
+> ※如果不需要使用`AdGuard Home`，这里要将`DNS`转发打开，将访问openwrt的dns请求都转发到mosdns上
+
 <div align=center><img src="img/image-20240808170555760.png"></div>
 
 
@@ -72,7 +74,21 @@ Default-NameServer
 223.5.5.5
 ```
 
+## AdGuard Home的配置
 
+主界面 - 重定向 - 替换53端口
+
+![image-20240809145657335](readme.assets/image-20240809145657335.png)
+
+
+
+设置 - DNS设置 - 上游服务器配置为`127.0.0.1:5335`
+
+设置 - DNS设置 - DNS缓存配置 全部清空，并且关闭乐观缓存
+
+过滤器 - DNS黑名单 添加几条常用的过滤规则即可。
+
+> ※如果不需要使用`AdGuard Home`，请打开mosdns的`DNS`转发，并检查openwrt的`DHCP/DNS - DNS转发`是否为`127.0.0.1:5335`
 
 # ikuai的配置
 
@@ -83,14 +99,24 @@ Default-NameServer
 <div align=center><img src="img/image-20240808172639716.png"></div>
 
 
+<br>
+
+<br>
+
 `网络设置 - 静态路由 - 静态路由`，将这个[static_route.txt](https://github.com/Putarku/clashmeta/blob/main/rule/static_route.txt)文件中的`192.168.31.2`修改为你的`openwrt`地址后，再进行导入。这一步非常关键，关系到客户端获取的fake-ip能否转发给openwrt。这个文件中的其他规则是为了某些使用ip进行连接的应用走旁路由而设置的。
 
 <div align=center><img src="img/image-20240808174141788.png"></div>
 
 
+<br>
+
+<br>
+
 网络设置-DHCP服务端，将首选、备选DNS改为openwrt的ip，网关设置为主路由ikuai。
 
 <div align=center><img src="img/image-20240808174257571.png"></div>
+
+<br>
 
 
 此时重新通过DHCP获取网络配置的设备应该都可以正常连接网络了。
