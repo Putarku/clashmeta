@@ -76,7 +76,7 @@ Default-NameServer
 
 # ikuai的配置
 
-网络设置 - NAT规则 ，添加下面这条规则，其中`192.168.31.1`为ikuai的地址，`192.168.31.2`为openwrt的地址，根据自己的网络情况改动。源地址为你想要走代理的设备ip，可以通过`终端分组`设置一个ip段。
+`网络设置 - NAT规则` ，添加下面这条规则，其中`192.168.31.1`为ikuai的地址，`192.168.31.2`为openwrt的地址，根据自己的网络情况改动。源地址为你想要走代理的设备ip，可以通过`终端分组`设置一个ip段。
 
 这条规则的效果是将局域网内设备访问网关的dns请求都转发到openwrt上，从而进行分流操作。
 
@@ -84,7 +84,7 @@ Default-NameServer
 
 
 
-网络设置 - 静态路由 - 静态路由，将这个[static_route.txt](https://github.com/Putarku/clashmeta/blob/main/rule/static_route.txt)文件中的`192.168.31.2`修改为你的openwrt地址后，再进行导入。这一步非常关键，关系到客户端获取的fake-ip能否转发给openwrt。这个文件中的其他规则是为了某些使用ip进行连接的应用走旁路由而设置的。
+`网络设置 - 静态路由 - 静态路由`，将这个[static_route.txt](https://github.com/Putarku/clashmeta/blob/main/rule/static_route.txt)文件中的`192.168.31.2`修改为你的`openwrt`地址后，再进行导入。这一步非常关键，关系到客户端获取的fake-ip能否转发给openwrt。这个文件中的其他规则是为了某些使用ip进行连接的应用走旁路由而设置的。
 
 ![image-20240808174141788](img/image-20240808174141788.png)
 
@@ -104,6 +104,6 @@ Default-NameServer
 
 ![image-20240808170037379](img/image-20240808170037379.png)
 
-设备的dns请求被发送到openwrt后，会先由AdGuard Home进行处理，在没有找到缓存信息的情况下，AdGuard Home会对上游的mosdns发起dns查询请求。mosdns会先对域名进行判断，如果为国内ip或域名，则直接向上游dns服务器发起查询，并将真实ip返回给AdGuard Home，AdGuard Home再将ip返回给客户端，客户端通过真实ip可以直接从ikuai的网关出去。
+设备的dns请求被发送到`openwrt`后，会先由`AdGuard Home`进行处理，在没有找到缓存信息的情况下，`AdGuard Home`会对上游的`mosdns`发起dns查询请求。mosdns会先对域名进行判断，如果为国内ip或域名，则直接向上游dns服务器发起查询，并将真实ip返回给`AdGuard Home`，`AdGuard Home`再将ip返回给客户端，客户端通过真实ip可以直接从ikuai的网关出去。
 
-而当时国外的域名时，mosdns会交由远程dns也就是openclash进行解析，openclash在判断为国外ip后会及时返回一个假的fake-ip给mosdns，最后设备会获取到一个假的ip。设备访问这个ip时，会由ikuai的静态路由转发到openwrt的openclash上，从而走代理进行访问。
+而当时国外的域名时，`mosdns`会交由远程dns也就是`openclash`进行解析，`openclash`在判断为国外ip后会及时返回一个假的fake-ip给mosdns，最后设备会获取到一个假的ip。设备访问这个ip时，会由ikuai的静态路由转发到`openwrt`的`openclash`上，从而走代理进行访问。
