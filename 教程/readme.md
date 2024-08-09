@@ -88,7 +88,7 @@ Default-NameServer
 
 过滤器 - DNS黑名单 添加几条常用的过滤规则即可。
 
-> ※如果不需要使用`AdGuard Home`，请打开mosdns的`DNS`转发，并检查openwrt的`DHCP/DNS - DNS转发`是否为`127.0.0.1:5335`
+如果观察到adg的日志里面有客户端响应的查询日志，并且可以返回`198.18.0.1/16`段内的ip，那么说明mosdns与openclash的配置已经生效了。
 
 # ikuai的配置
 
