@@ -2,7 +2,11 @@
 
 借助fake-ip的特点，我们可以通过ikuai的nat转发来解决上面的问题。即便是将网关设置到主路由上，依旧可以通过dns的方式来使国外流量走旁路由，并且配置方法也很简单，不需要繁琐的双网关互指。
 
+---
+
 # Openwrt的配置
+
+openwrt总共需要用三个插件，`luci-app-openclash` `luci-app-mosdns` `luci-app-adguardhome`，可以使用网上其他人做好的固件，也可以直接用`istore`
 
 ## MosDNS的配置
 
