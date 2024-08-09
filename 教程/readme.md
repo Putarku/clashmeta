@@ -1,12 +1,13 @@
 网上关于`mosdns`与`openclash`的教程已经足够多了，但借用fake ip来与ikuai形成有机结合的教程倒是不太多。网上绝大多数人都是将openwrt作为旁路由来使用，需要代理的设备将网关设置到openwrt上来满足xx的需求。但这样就存在一个问题，该设备的所有流量都会经过openwrt来进行一遍分流，如果软路由性能较弱的情况下，势必会对访问国内网站的速度造成一定的影响。那么有没有什么办法可以让国内流量不走openwrt，只有代理的流量走openwrt的方法呢？
 
-借助fake-ip的特点，我们可以通过ikuai的nat转发来解决上面的问题。即便是将网关设置到主路由上，依旧可以通过dns的方式来使国外流量走旁路由，并且配置方法也很简单，不需要繁琐的双网关互指。
+
+借助fake-ip的特点，我们可以通过ikuai的nat转发来解决上面的问题。配置好后，局域网内的设备网关指向主路由的情况下，DNS请求会被转发到openwrt的mosdns上，如果返回真实ip，那么流量会直接从主路由出去，不经过openwrt。如果返回fake-ip，则会由主路由经NAT转发到openwrt上。从而达到优化网络流量的目的。
 
 ---
 
 # Openwrt的配置
 
-openwrt总共需要用三个插件，`luci-app-openclash` `luci-app-mosdns` `luci-app-adguardhome`，可以使用网上其他人做好的固件，也可以直接用`istore`
+openwrt总共需要用三个插件，`luci-app-openclash` `luci-app-mosdns` `luci-app-adguardhome`，可以使用网上其他人做好的固件，也可以直接用`istore`。
 
 ## MosDNS的配置
 
