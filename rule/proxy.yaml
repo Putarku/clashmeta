@@ -15,7 +15,6 @@ payload:
   - DOMAIN-SUFFIX,bangumi.moe
   - DOMAIN-SUFFIX,wnacg.com
   - DOMAIN-SUFFIX,docker.io
-  - DOMAIN-KEYWORD,pilipili
   - DOMAIN-SUFFIX,themoviedb.org
   - DOMAIN-SUFFIX,hub.docker.com
   - DOMAIN-SUFFIX,tmdb.org
